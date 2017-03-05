@@ -9,27 +9,41 @@ namespace exchange1
 {
     class FileHandler
     {
-        public void ReadFromFile()
+        public List<Record> ReadFromFile()
         {
             using (StreamReader reader = new StreamReader("WIG20.txt"))
             {
                 string line = String.Empty;
+                List<Record> records = new List<Record>();
                 while ((line = reader.ReadLine()) != null)
                 {
-                    line.Split(',');
+                    List<string> columns = new List<string>(line.Split(','));
+                    Record record = new Record(float.Parse(columns[5]));
+                    records.Add(record);
                 }
+                return records;
             }
+        }
+        public void WriteToFile(string fileName)
+        {
+
         }
     }
     class Record
     {
-        string name;
-        int date;
-        float open;
-        float high;
-        float low;
-        float close;
-        float volume;
+        private string name;
+        private int date;
+        private float open;
+        private float high;
+        private float low;
+        private float close;
+        private float volume;
+        private float average;
+
+        public Record(float close)
+        {
+            this.close = close;
+        }
     }
     static class Program
     {
