@@ -101,9 +101,22 @@ namespace exchange1
             this.volume = volume;
             this.average = average;
         }
+        
         public int getDate()
         {
             return date;
+        }
+        public double getOpen()
+        {
+            return open;
+        }
+        public double getHigh()
+        {
+            return high;
+        }
+        public double getLow()
+        {
+            return low;
         }
         public double getClose()
         {
