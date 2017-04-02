@@ -17,16 +17,31 @@ namespace exchange1
         {
             InitializeComponent();
         }
-
+        FileHandler file = new FileHandler();
+        MathOperations operations = new MathOperations();
+        List<Record> records;
         private void button1_Click(object sender, EventArgs e)
         {
             button1.Enabled = false;
-            FileHandler file = new FileHandler();
-            Operations ope = new Operations();
-            var records = ope.simpleAverageMethod(file.ReadFromFile());
+            records = operations.simpleAverageMethod(file.ReadFromFile());
             file.WriteToFile(records);
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            button3.Enabled = false;
+            try
+            {
+                if (records == null)
+                {
+                    throw new Exception();
+                }
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show("Can not draw chart, data was not loaded.", "Error");
+                Environment.Exit(0);
+            }
             chart1.Series["average"].ChartType = SeriesChartType.Candlestick;
-            chart1.Series.Add("data");
             chart1.Series["data"].ChartType = SeriesChartType.Line;
             foreach (var record in records)
             {
@@ -37,7 +52,10 @@ namespace exchange1
                     chart1.Series["data"].Points.AddXY(record.getDate(), record.getClose());
                 }
             }
-            button1.Enabled = true;
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }
